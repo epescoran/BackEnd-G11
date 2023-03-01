@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request, render_template
 
 app= Flask(__name__)
 
@@ -16,7 +16,12 @@ def alumno():
 
 @app.route("/alumnos", methods=['GET','POST', 'PUT', 'DELETE', 'OPTIONS','PATCH'])
 def alumnos():
-    return lista_alumnos
+    print(request.method)
+    if request.method=='GET':
+        return lista_alumnos
+    elif request.method=='POST':
+        lista_alumnos.append(request.json)
+        return lista_alumnos
 
 lista_alumnos=[
         {
@@ -47,5 +52,19 @@ def buscar_alumno(nombre):
         }
     #return f'El alumno se llama: {nombre}'
 
+
+@app.route("/html")
+def html():
+    edad=10
+   # return "<button> Dame Click </button>"
+    return render_template('index.html', edad=edad)
 # debug=True > Si realizamos algun cambio podremos verlo en tiempo real (se reiniciara el servidor)
+
+@app.route("/files", methods=['POST'])
+def filesl():
+    print(request.files['foto'].read().decode())
+   
+    return 'Archivo recibido exitosamente'
+
+
 app.run(debug=True)
