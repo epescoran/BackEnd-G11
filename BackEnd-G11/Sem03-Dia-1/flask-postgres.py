@@ -75,10 +75,24 @@ def gestion_alumno(id):
                 'msessage':'El alumno no existe'
             }
     elif request.method=='PUT':
-        pass
+        data=request.json
+        
+        cursor= conexion.cursor()
+        cursor.execute("UPDATE ALUMNOS SET nombre=%s, apellido=%s, matriculado=%s WHERE id=%s;",( data.get('nombre'),data.get('apellido'), data.get('matriculado'),data.get('id') ))
+        return{
+            'message':'Alumno modificado exitosamente'
+        }
+        conexion.commit()
     
     elif request.method=='DELETE':
-        pass
+        data=request.json
+        
+        cursor= conexion.cursor()
+        cursor.execute("DELETE ALUMNOS WHERE id=%s;",(data.get('id') ))
+        return{
+            'message':'Alumno eliminado exitosamente'
+        }
+        conexion.commit()
 
 
 
