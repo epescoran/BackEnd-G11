@@ -8,5 +8,5 @@ urlpatterns=[
     path('categoria/<int:id>',UnaCategoriaView.as_view()),
     path('productos',ProductosView.as_view()),
     path('productos-generic',ProductosGenericView.as_view()),
-      path('producto/<int:id>', unProductoView.as_view()),
+    path('producto/<int:id>', unProductoView.as_view()),
 ]
